@@ -1,7 +1,7 @@
 import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
-import RedisSubscriptionManager from "./redis";
+import {RedisSubscriptionManager} from "./redis";
 
 const app = express();
 const port = 8080;
@@ -19,7 +19,9 @@ let counter = 0;
 
 wss.on("connection", async (ws, req) => {
     const wsId = counter++;
+
     ws.on("message", (message: string) => {
+        ws.send(`Hello, you sent a ${message}`);
 
         const data = JSON.parse(message.toString());
         if (data.type === "join") {
@@ -34,16 +36,16 @@ wss.on("connection", async (ws, req) => {
             const roomId = users[wsId].room;
             const message = data.payload.message;
             RedisSubscriptionManager.getInstance().addChatMessage(roomId, message);
-            // Object.keys(users).forEach((wsId) => {
-            //     if (users[wsId].room === roomId) {
-            //         users[wsId].ws.send(JSON.stringify({
-            //             type: "message",
-            //             payload: {
-            //                 message
-            //             }
-            //         }));
-            //     }
-            // })
+            Object.keys(users).forEach((wsId) => {
+                if (users[wsId].room === roomId) {
+                    users[wsId].ws.send(JSON.stringify({
+                        type: "message",
+                        payload: {
+                            message
+                        }
+                    }));
+                }
+            })
         }
     });
     ws.on("disconnect", () => {
