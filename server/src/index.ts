@@ -2,11 +2,21 @@ import express from "express";
 import http from "http";
 import { WebSocketServer } from "ws";
 import {RedisSubscriptionManager} from "./redis";
+import dotenv from "dotenv";
+const router = express.Router()
+const routes = require('./routes/master-router');
+dotenv.config();
+
 
 const app = express();
 const port = 8080;
 
 const server = http.createServer(app);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(routes);
 
 const wss = new WebSocketServer({ server });
 
@@ -15,12 +25,13 @@ const users: { [key: string]: {
     ws: any;
 } } = {};
 
+
 let counter = 0;
 
 wss.on("connection", async (ws, req) => {
     const wsId = counter++;
-
-    ws.on("message", (message: string) => {
+    console.log("New connection", wsId);
+    ws.on("message", async (message: string) => {
         ws.send(`Hello, you sent a ${message}`);
 
         const data = JSON.parse(message.toString());
@@ -48,7 +59,7 @@ wss.on("connection", async (ws, req) => {
             })
         }
     });
-    ws.on("disconnect", () => {
+    ws.on("close", () => { // Changed from "disconnect" to "close"
         RedisSubscriptionManager.getInstance().unsubscribe(wsId.toString(), users[wsId].room);
     })
 });
