@@ -1,12 +1,12 @@
-import { createClient } from "redis";
-import type { RedisClientType } from "redis";
-import dotenv from "dotenv";
+const dotenv = require('dotenv');
+const { createClient } = require('redis');
+// const { RedisClientType } = require('./types');
 dotenv.config();
 
 export class RedisSubscriptionManager {
     private static instance: RedisSubscriptionManager;
-    private subscriber: RedisClientType;
-    public publisher: RedisClientType;
+    private subscriber;
+    public publisher ;
     private subscriptions: Map<string, string[]>;
     private reverseSubscriptions: Map<string, { [userId: string]: { userId: string; ws: any; } }>;
 

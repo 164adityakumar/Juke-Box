@@ -1,12 +1,13 @@
-import express from "express";
-import http from "http";
-import { WebSocketServer } from "ws";
-import {RedisSubscriptionManager} from "./redis";
-import dotenv from "dotenv";
-const router = express.Router()
-const routes = require('./routes/master-router');
-dotenv.config();
+const express = require("express");
+const http = require("http");
+const ws = require("ws");
+const RedisSubscriptionManager = require("./redis");
+const WebSocketServer = ws.Server;
+const dotenv = require('dotenv');
+const morgan = require('morgan');
 
+const routes = require("./routes/router");
+dotenv.config();
 
 const app = express();
 const port = 8080;
@@ -15,8 +16,10 @@ const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan('tiny'));
 
 app.use(routes);
+
 
 const wss = new WebSocketServer({ server });
 
@@ -64,4 +67,6 @@ wss.on("connection", async (ws, req) => {
     })
 });
 
-server.listen(port);
+server.listen( port, () => {    // Changed from app.listen to server.listen
+    console.log(`Server started on http://localhost:${port}`);
+});

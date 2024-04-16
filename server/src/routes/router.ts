@@ -1,8 +1,6 @@
-const spotifyrouter = require("./api/spotify");
-const roomrouter = require("./api/rooms");
 const router = require("express").Router();
+const apiRouter = require("./api/router");
 
-router.use("/spotify", spotifyrouter);
-router.use("/rooms", roomrouter);
+router.use("/api", apiRouter);
 
-module.exports = router;
+module.exports=router;
