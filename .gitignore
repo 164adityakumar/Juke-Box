@@ -1,8 +1,8 @@
 .env
 dist/
 node_modules/
-
-
+.idea/
+.vscode/
 .env.*
 node_modules
 build
