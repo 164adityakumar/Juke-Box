@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,body{
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: none;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+.Juke{
+    font-family: "Jersey 15", sans-serif;
+    font-weight: 400;
+}
