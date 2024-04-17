@@ -6,23 +6,7 @@ const { RedisSubscriptionManager } = require("../../redis");
 roomrouter.post('/create', (req, res) => {
     const roomId = req.body.roomId;
     RedisSubscriptionManager.getInstance().createRoom(roomId);
-    res.send('Room created');
-});
-
-// Route for joining a room
-roomrouter.post('/join', (req, res) => {
-    const roomId = req.body.roomId;
-    const userId = req.body.userId;
-    const ws = req.body.ws;
-    handleJoin(userId, { payload: { roomId } }, ws);
-    res.send('Joined room');
-});
-
-// Route for leaving a room
-roomrouter.post('/leave', (req, res) => {
-    const userId = req.body.userId;
-    handleClose(userId);
-    res.send('Left room');
+    res.send('Room created with id: ' + roomId);
 });
 
 module.exports = roomrouter;

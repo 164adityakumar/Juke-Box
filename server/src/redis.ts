@@ -22,7 +22,8 @@ export class RedisSubscriptionManager {
           port: process.env.REDIS_PORT,
           password: process.env.REDIS_PASSWORD
         });
-        
+
+    
         this.subscriber.on('error', (err) => {
             console.error('Subscriber error:', err);
         });
@@ -30,10 +31,13 @@ export class RedisSubscriptionManager {
             console.error('Publisher error:', err);
         });
 
+        
         // Initialize other properties
         this.subscriptions = new Map<string, string[]>();
         this.reverseSubscriptions = new Map<string, { [userId: string]: { userId: string; ws: any; } }>();
     }
+
+
 
     static getInstance() {
         if (!this.instance) {
@@ -42,6 +46,18 @@ export class RedisSubscriptionManager {
         return this.instance;
     }
 
+    createRoom(roomId: string, userId: string) {
+        // Check if the room already exists
+        if (this.subscriptions.has(roomId)) {
+            throw new Error('Room already exists');
+        }
+
+        // Create a new room
+        this.subscriptions.set(roomId, [userId]);
+    }
+    getRoomUsers(roomId: string) {
+        return this.reverseSubscriptions.get(roomId) || {};
+    }
     subscribe(userId: string, room: string, ws: any) {
         this.subscriptions.set(userId, [
             ...(this.subscriptions.get(userId) || []),
@@ -89,21 +105,8 @@ export class RedisSubscriptionManager {
         }
     }
 
-    async addChatMessage(
-        room: string,
-        message: string
-    ) {
-        this.publish(room, {
-            type: "message",
-            payload: {
-                message
-            },
-        });
-    }
-
-    publish(room: string, message: any) {
-        console.log(`publishing message to ${room}`);
-        this.publisher.publish(room, JSON.stringify(message));
+    addChatMessage(room: string, message: string) {
+        this.publisher.publish(room, JSON.stringify({ type: "message", payload: { message } }));
     }
 }
 

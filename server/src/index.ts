@@ -32,6 +32,7 @@ export const users: { [key: string]: {
 
 wss.on("connection", handleConnection);
 
+
 server.listen( port, () => {    // Changed from app.listen to server.listen
     console.log(`Server started on http://localhost:${port}`);
 });

@@ -1,20 +1,21 @@
 import { handleJoin, handleMessage, handleClose } from './messageHandlers';
+import crypto from 'crypto';
 
-let counter = 0;
+
 export const handleConnection = async (ws, req) => {
-    const wsId = counter++;
-    console.log("New connection", wsId);
+    const userId = crypto.randomBytes(16).toString('hex');
+    console.log("New connection", userId);
     ws.on("message", async (message: string) => {
         const data = JSON.parse(message.toString());
         if (data.type === "join") {
-            handleJoin(wsId, data, ws);
+            handleJoin(userId, data, ws);
         }
 
         if (data.type === "message") {
-            handleMessage(wsId, data);
+            handleMessage(userId, data);
         }
     });
     ws.on("close", () => {
-        handleClose(wsId);
+        handleClose(userId);
     })
 };
