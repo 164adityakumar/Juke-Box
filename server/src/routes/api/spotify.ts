@@ -44,7 +44,7 @@ spotifyrouter.get('/callback', function (req, res) {
   };
   request.post(authOptions, (error, response, body) => {
     const access_token = body.access_token;
-    const url = process.env.NODE_ENV ? process.env.FRONTEND_URL : 'http://localhost:3000/home';
+    const url = process.env.NODE_ENV ? process.env.FRONTEND_URL : 'http://localhost:3000/room/create';
 
     res.redirect(url + '?access_token=' + access_token);
   });

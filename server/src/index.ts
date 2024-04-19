@@ -4,6 +4,7 @@ const ws = require("ws");
 const WebSocketServer = ws.Server;
 const dotenv = require('dotenv');
 const morgan = require('morgan');
+const cors = require('cors');
 
 import { handleConnection } from "./ws/websocketHandlers";
 
@@ -12,7 +13,7 @@ dotenv.config();
 
 const app = express();
 const port = 8080;
-
+app.use(cors());
 const server = http.createServer(app);
 
 app.use(express.json());
