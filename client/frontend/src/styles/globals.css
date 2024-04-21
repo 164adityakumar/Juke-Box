@@ -85,3 +85,14 @@
     font-weight: 800;
   }
 
+.songname {
+  /* font-size: 1rem; */
+  font-family: 'Lato', sans-serif;
+  font-weight:500;
+  color: rgba(240, 248, 255, 0.942);
+}
+.artist{
+  font-size: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+  color: rgba(240, 248, 255, 0.815);
+}
