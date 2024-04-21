@@ -1,4 +1,4 @@
-import { handleJoin, handleMessage, handleClose } from './messageHandlers';
+import { handleJoin, handleMessage, handleClose , handleAddToQueue, getQueue} from './messageHandlers';
 import crypto from 'crypto';
 
 
@@ -9,10 +9,17 @@ export const handleConnection = async (ws, req) => {
         const data = JSON.parse(message.toString());
         if (data.type === "join") {
             handleJoin(userId, data, ws);
+            console.log("Joining room", userId, data.payload.roomId);
         }
-
         if (data.type === "message") {
             handleMessage(userId, data);
+        }
+        if(data.type === "addToQueue") {
+            handleAddToQueue(userId, data, ws);
+            console.log("Adding to queue", userId, data.payload.songId);
+        }
+        if(data.type === "getQueue") {
+            getQueue(userId, ws);
         }
     });
     ws.on("close", () => {

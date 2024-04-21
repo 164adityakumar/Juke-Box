@@ -1,6 +1,4 @@
-import React from "react";
 import { Vortex } from "../../components/ui/vortex";
-import { poppins } from "../../utils/fonts";
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,14 +10,6 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
 import { FaArrowLeft } from "react-icons/fa"
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -29,9 +19,16 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
+import axios from "axios";
+import { atom, useRecoilState } from "recoil";
+import { useRouter } from 'next/router'
+import { wsManager } from "@/utils/ws";
+
+
 
 export function InputOTPControlled() {
-  const [value, setValue] = React.useState("")
+
+  const [value, setValue] = useRecoilState(RoomId)
  
   return (
     <div className="space-y-2 ">
@@ -64,6 +61,25 @@ export function InputOTPControlled() {
 
 
 export function CardWithForm() {
+ 
+
+
+  const [roomId] = useRecoilState(RoomId)
+  const router = useRouter()
+  
+  function handleRoomCreation() {
+    axios.post(`${process.env.API_URL}/api/rooms/create`, {
+      roomId: roomId
+    }).then((res) => {
+      console.log(`Status: ${res.status}`);
+      console.log('Body: ', res.data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  
+  }
+  
   return (
     <Card className="w-[350px] bg-opacity-80 border-slate-800 ">
       <CardHeader>
@@ -85,13 +101,20 @@ export function CardWithForm() {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline" className="rounded-full" onClick={() => window.history.back()}><FaArrowLeft /></Button>
-        <Button className="rounded-full bg-purple-200 font-medium">Create<span><IoIosArrowForward className="-mr-1" /></span></Button>
+        <Button className="rounded-full bg-purple-200 font-medium" onClick={handleRoomCreation}>Create<span><IoIosArrowForward className="-mr-1" /></span></Button>
+        <Button className="rounded-full bg-purple-200 font-medium" onClick={() => wsManager.handleRoomJoin(roomId, router)}>JOIN</Button>
       </CardFooter>
     </Card>
   )
 }
 
 export default function Create() {
+    const router = useRouter();
+    const { access_token } = router.query;
+
+    if (typeof access_token === 'string') {
+      localStorage.setItem('access_token', access_token);
+    }
 
     return (
         <div className=" mx-auto h-[100vh]  overflow-hidden">
@@ -99,8 +122,8 @@ export default function Create() {
                 backgroundColor="black"
                 className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
                 particleCount={2000}
-                rangeY={200}
-                baseHue={250}
+                rangeY={300}
+                baseHue={200}
             >
                 <div className="flex flex-col items-center gap-4 mt-6 bg-white bg-opacity-25 rounded-xl">
                     <CardWithForm />
@@ -109,3 +132,16 @@ export default function Create() {
         </div>
     );
 }
+
+
+
+
+const RoomId = atom({
+  key: "roomId",
+  default: "",
+});
+
+const WS= atom({
+  key: "ws",
+  default: "",
+});

@@ -12,7 +12,7 @@ export default function Login() {
       className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
       particleCount={2000}
       rangeY={200}
-      baseHue={200}
+      baseHue={250}
     >
       <h2 className="Juke text-white  text-7xl sm:text-8xl font-bold text-center">
         Juke Box

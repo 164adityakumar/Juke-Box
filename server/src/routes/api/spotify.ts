@@ -12,7 +12,7 @@ const redirectURI = process.env.NODE_ENV
 spotifyrouter.get('/login', function (req, res) {
 
   const client_id = process.env.CLIENT_ID;
-  const scope = 'user-read-private user-read-email playlist-modify-private playlist-modify-public user-read-currently-playing user-read-playback-state user-modify-playback-state';
+  const scope = 'streaming user-read-private user-read-email playlist-modify-private playlist-modify-public user-read-currently-playing user-read-playback-state user-modify-playback-state ';
 
   // res.json({url: 'https://accounts.spotify.com/authorize'});
   

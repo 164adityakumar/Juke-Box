@@ -18,7 +18,7 @@ const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 
 app.use(routes);
 
@@ -30,7 +30,14 @@ export const users: { [key: string]: {
     ws: any;
 } } = {};
 
+export const rooms: { [key: string]: {
+    users: string[];
+    queue: string[];
+} } = {};
 
+
+
+ 
 wss.on("connection", handleConnection);
 
 

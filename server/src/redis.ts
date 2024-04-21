@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 const { createClient } = require('redis');
 import type { RedisClientType } from "redis";
 dotenv.config();
-
+   
 export class RedisSubscriptionManager {
     private static instance: RedisSubscriptionManager;
     private subscriber: RedisClientType;
@@ -107,6 +107,23 @@ export class RedisSubscriptionManager {
 
     addChatMessage(room: string, message: string) {
         this.publisher.publish(room, JSON.stringify({ type: "message", payload: { message } }));
+    }
+
+    addSongToQueue(roomId: string, songId: string) {
+        // Get the current list of songs for the room
+        let songQueue = this.subscriptions.get(roomId) || [];
+    
+        // Add the new song to the queue
+        songQueue.push(songId);
+    
+        // Update the list of songs for the room
+        this.subscriptions.set(roomId, songQueue);
+    }
+
+
+    getSongQueue(roomId: string) {
+        // Get the current list of songs for the room
+        return this.subscriptions.get(roomId) || [];
     }
 }
 
