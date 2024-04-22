@@ -4,6 +4,26 @@
 
   html,body {
     font-family: 'Poppins', sans-serif;
+    
+  }
+
+
+  .gradient-background {
+    background: linear-gradient(260deg,#0b121f,#121b32,#171232,#19102a,#172238,#081435);
+    background-size: 360% 360%;
+    animation: gradient-animation 18s ease infinite;
+  }
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   @layer base {
@@ -86,13 +106,13 @@
   }
 
 .songname {
-  /* font-size: 1rem; */
+  font-size: 1rem;
   font-family: 'Lato', sans-serif;
   font-weight:500;
   color: rgba(240, 248, 255, 0.942);
 }
 .artist{
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-family: 'Poppins', sans-serif;
   color: rgba(240, 248, 255, 0.815);
 }

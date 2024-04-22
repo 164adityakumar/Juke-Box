@@ -43,6 +43,24 @@ export class WebSocketManager {
             }
         }));
     }
+
+    getqueue(setData: any) {
+        if (!this.ws) {
+            console.error('WebSocket is not connected');
+            return;
+        }
+
+        this.ws.send(JSON.stringify({
+            type: "getQueue",
+            payload: {}
+        }));
+
+        this.ws.onmessage = async (event) => {
+            const response = await event.data;
+            setData(response);
+            console.log('Response:', response);
+        };
+    }
 }
 
 export const wsManager = new WebSocketManager();

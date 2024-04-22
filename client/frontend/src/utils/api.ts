@@ -60,10 +60,7 @@ nextPlaybackTrack: (token: string) => {
 trackSearch: (token: string, track: string) => {
     return axios({
         method: 'GET',
-        url: `https://api.spotify.com/v1/search?q=${track}&type=track&limit=20`,
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
+        url: `https://saavn.dev/api/search/songs?query=${track}&limit=20`
     });
 },
 getPlaylistTracks: (token: string, playlistId: string) => {
