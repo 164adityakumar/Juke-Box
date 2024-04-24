@@ -23,6 +23,7 @@ import axios from "axios";
 import { atom, useRecoilState } from "recoil";
 import { useRouter } from 'next/router'
 import { wsManager } from "@/utils/ws";
+import { newQueuesong } from "@/components/search/atom";
 
 
 
@@ -65,6 +66,7 @@ export function CardWithForm() {
 
 
   const [roomId] = useRecoilState(RoomId)
+  const [,setnewSong]=useRecoilState(newQueuesong)
   const router = useRouter()
   
   function handleRoomCreation() {
@@ -136,7 +138,7 @@ export default function Create() {
 
 
 
-const RoomId = atom({
+export const RoomId = atom({
   key: "roomId",
   default: "",
 });

@@ -9,5 +9,10 @@ roomrouter.post('/create', (req, res) => {
     res.send('Room created with id: ' + roomId);
 });
 
+roomrouter.get('/:roomId/getQueue', (req, res) => {
+    const roomId = req.params.roomId;
+    const queue = RedisSubscriptionManager.getInstance().getSongQueue(roomId);
+    res.send(queue);
+});
 
 module.exports = roomrouter;

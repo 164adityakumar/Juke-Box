@@ -1,6 +1,7 @@
 import { NextRouter } from "next/router";
 
 export class WebSocketManager {
+
     private ws: WebSocket | null = null;
 
     private connect() {
@@ -21,16 +22,16 @@ export class WebSocketManager {
             };
 
             this.ws.onmessage = async (event) => {
-                const response = await event.data;
+                const response =await event.data;
+                await router.push(`/room/${roomId}`);
                 console.log('Response:', response);
-                router.push(`/room/${roomId}`);
             };
         } else {
             console.error('WebSocket is not connected');
         }
     }
 
-    sendSongToBackend(track: any) {
+    sendSongToBackend(track: any,setnewSong: any,newSong: any    ) {
         if (!this.ws) {
             console.error('WebSocket is not connected');
             return;
@@ -42,25 +43,14 @@ export class WebSocketManager {
                 songId: track.id
             }
         }));
-    }
-
-    getqueue(setData: any) {
-        if (!this.ws) {
-            console.error('WebSocket is not connected');
-            return;
-        }
-
-        this.ws.send(JSON.stringify({
-            type: "getQueue",
-            payload: {}
-        }));
 
         this.ws.onmessage = async (event) => {
-            const response = await event.data;
-            setData(response);
-            console.log('Response:', response);
+            const response =JSON.parse( await event.data);
+            await setnewSong(response.payload);
+            console.log('Response:', response.payload);
         };
     }
+
 }
 
 export const wsManager = new WebSocketManager();

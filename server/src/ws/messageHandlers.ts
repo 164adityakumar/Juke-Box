@@ -25,7 +25,10 @@ export const handleJoin = async(userId, data, ws) => {
     const numUsers = Object.keys(roomUsers).length;
 
     // Send the number of users in the room to the client
-    ws.send(`Joined room. There are now ${numUsers} users in the room.`);
+    ws.send(JSON.stringify({
+        type: "Joined",
+        payload: `Joined room. There are now ${numUsers} users in the room.`,
+    }));
 };
 
 export const handleMessage = async(userId, data) => {
@@ -64,26 +67,8 @@ export const handleAddToQueue = async (userId, data, ws) => {
     for (const user of Object.values<any>(roomUsers)) {
         (user as any).ws.send(JSON.stringify({
             type: "queueUpdate",
-            payload: {
-                message: `Song with ID ${songId} has been added to the queue.`
-            }
+            payload: songId
+            
         }));
     }
-};
-
-export const getQueue = async (userId: string, ws: any) => {
-    if (!ws) {
-        throw new Error('WebSocket is not defined');
-    }
-
-    const roomId = users[userId].room;
-
-    // Get the song queue from Redis
-    const songQueue = await RedisSubscriptionManager.getInstance().getSongQueue(roomId);
-
-    // Send the song queue back to the client
-    ws.send(JSON.stringify({
-        type: "queueUpdate",
-        payload: songQueue
-    }));
 };

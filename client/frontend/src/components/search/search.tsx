@@ -3,24 +3,17 @@ import API from '../../utils/api';
 import { Button } from '@/components/ui/button';
 import { useRecoilState } from 'recoil';
 
-import React, { useEffect, useState } from 'react'; // Add missing import for React
+import React, { useEffect, useState } from 'react'; 
 import { wsManager } from '@/utils/ws';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+
 import { ScrollArea } from "../ui/scroll-area";
-import { time } from "console";
+import { data ,newQueuesong} from './atom';
+
 
 export function Search (){
     const [Data, setData] = useRecoilState(data);
+    const [newsong, setNewsong] = useRecoilState(newQueuesong);
     const [searchResults, setSearchResults] = useState([]); // Add state to store search results
-    const accessToken = typeof window !== 'undefined' ? localStorage.getItem("access_token") : null;
-    
     
     const searchBtnHandler = {
         search: async (e: React.FormEvent<HTMLFormElement>) => {
@@ -28,9 +21,8 @@ export function Search (){
     
                 const input = (e.target as HTMLFormElement).input.value;
                 if (input) {
-                    const response = await API.trackSearch(accessToken!, input);
-                    console.log(response);
-                    console.log(response.data.data.results);
+                    const response = await API.trackSearch(input);
+                    // console.log(response.data.data.results);
                     if (response.data.data.results) {
                         const tracksArr = response.data.data.results.map((track: any) => ({
                             id: track.id,
@@ -54,10 +46,16 @@ export function Search (){
         }
     };
     
-    
-    
-    
-    
+
+
+    const handleSongClick = async (track: any) => {
+        await wsManager.sendSongToBackend(track, setNewsong,newsong);
+    }
+
+
+    useEffect(() => {
+        console.log('newSong:', newsong);
+    }, [newsong]);
 
 
     const [showSearch, setShowSearch] = useState(false); // Add state to control visibility of search div
@@ -109,8 +107,8 @@ export function Search (){
             {showSearch && (
                 <ScrollArea className="results flex flex-col h-[60vh] overflow-y-scroll relative  w-full z-50 overflow-hidden rounded-md border bg-popover  shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-slate-900 transition-colors " >
                     {searchResults.map((track: any) => (
-                        <div key={track.id} onClick={() => wsManager.sendSongToBackend(track)} className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer">
-                            <img src={track.image[1]} alt={track.name} className=" w-14 rounded-sm" />
+                        <div key={track.id} onClick={() =>{ handleSongClick(track)}} className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer">
+                            <img src={track.image[1]} alt={track.name} className=" rounded-sm w-12" />
                             <div className="px-2 flex flex-col justify-between ">
                                 <p className="songname">{track.name}</p>
                                 <p className="artist"> {track.artist} · {formatTime(track.duration)} · {formatCount(track.plays)}</p> 
@@ -128,11 +126,5 @@ export function Search (){
 }
 
 
-import { atom } from "recoil";
-import Image from 'next/image';
 
 
-export const data = atom<never[]>({
-    key: "Data",
-    default: [],
-});

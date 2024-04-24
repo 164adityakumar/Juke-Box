@@ -10,13 +10,10 @@ getUserData: (token:string) => {
 			}
 		});
 	},
-getUserPlaylists: (token: string, limit: number) => {
+getTrackfromId: (trackId: string) => {
     return axios({
         method: 'GET',
-        url: `https://api.spotify.com/v1/me/playlists?limit=${limit}`,
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
+        url: `https://saavn.dev/api/songs/${trackId}`,
     })
 },
 getUserQueueData: (token: string) => {
@@ -57,7 +54,7 @@ nextPlaybackTrack: (token: string) => {
         }
     });
 },
-trackSearch: (token: string, track: string) => {
+trackSearch: (track: string) => {
     return axios({
         method: 'GET',
         url: `https://saavn.dev/api/search/songs?query=${track}&limit=20`
