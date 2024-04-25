@@ -13,7 +13,22 @@ import { data ,newQueuesong} from './atom';
 export function Search (){
     const [Data, setData] = useRecoilState(data);
     const [newsong, setNewsong] = useRecoilState(newQueuesong);
+    const [Track, setTrack] = useState<any>({}); // Add state to store track data
     const [searchResults, setSearchResults] = useState([]); // Add state to store search results
+;
+
+
+useEffect(() => {
+    const trigger = async () => {
+        let track = {
+            id: "trigger",
+        }
+
+        await wsManager.sendSongToBackend(track, setNewsong, newsong);
+    };
+
+    trigger();
+}, []);
     
     const searchBtnHandler = {
         search: async (e: React.FormEvent<HTMLFormElement>) => {

@@ -58,7 +58,8 @@ export const handleAddToQueue = async (userId, data, ws) => {
     }
     const roomId = users[userId].room;
     const songId = data.payload.songId;
-
+     
+    
     // Add the song to the queue in Redis
     await RedisSubscriptionManager.getInstance().addSongToQueue(roomId, songId);
 

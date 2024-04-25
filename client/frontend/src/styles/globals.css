@@ -119,13 +119,13 @@
 
 
 .songname-queue {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-family: 'Lato', sans-serif;
   font-weight:500;
   color: rgba(240, 248, 255, 0.942);
 }
 .artist-queue {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: 'Poppins', sans-serif;
   color: rgba(240, 248, 255, 0.815);
   

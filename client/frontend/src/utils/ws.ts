@@ -14,7 +14,7 @@ export class WebSocketManager {
         if (this.ws) {
             this.ws.onopen = () => {
                 this.ws?.send(JSON.stringify({
-                    type: 'join',
+                    type: "join",
                     payload: {
                         roomId: roomId
                     }
@@ -31,26 +31,27 @@ export class WebSocketManager {
         }
     }
 
-    sendSongToBackend(track: any,setnewSong: any,newSong: any    ) {
-        if (!this.ws) {
-            console.error('WebSocket is not connected');
-            return;
-        }
-
-        this.ws.send(JSON.stringify({
-            type: "addToQueue",
-            payload: {
-                songId: track.id
-            }
-        }));
-
-        this.ws.onmessage = async (event) => {
-            const response =JSON.parse( await event.data);
-            await setnewSong(response.payload);
-            console.log('Response:', response.payload);
-        };
+sendSongToBackend(track: any, setnewSong: any, newSong: any) {
+    if (!this.ws) {
+        console.error('WebSocket is not connected');
+        return;
     }
 
+    this.ws.send(JSON.stringify({
+        type: "addToQueue",
+        payload: {
+            songId: track.id
+        }
+    }));
+
+    this.ws.onmessage = async (event) => {
+        const response = JSON.parse(await event.data);
+        if (response.type === 'queueUpdate') {
+            console.log('Response:', response.payload);
+            await setnewSong(response.payload);
+        }
+    };
+    }
 }
 
 export const wsManager = new WebSocketManager();

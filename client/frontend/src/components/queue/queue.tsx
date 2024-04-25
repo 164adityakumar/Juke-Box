@@ -27,7 +27,7 @@ export function Queue() {
                     if (!roomId) {
                         return;
                     }
-                    if (!songId) {
+                    if (!songId || songId==="trigger") {
                         return null;
                     }
                     // console.log(songId);
@@ -59,7 +59,7 @@ export function Queue() {
 
 
     useEffect(() => {
-        if (newQsong) {
+        if (newQsong && newQsong !== "trigger") {
             
 
             const fetchNewSong = async () => {
@@ -110,16 +110,16 @@ export function Queue() {
             {FinalQueue.map((song: any, index: number) => (
                 <div
                     key={randomBytes(4).toString("hex")}
-                    className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer"
+                    className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer w-full"
                     style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                    <img src={song.image[1]} alt={song.name} className="rounded-sm w-10 content-stretch" />
+                    <img src={song.image[1]} alt={song.name} className="rounded-sm w-10 content-stretch aspect-square h-10" />
                   
-                    <div className=" px-2 flex flex-row  justify-between w-9/12 items-center ">
-                    <div className="  flex flex-col justify-between h-full w-3/4 ">
+                    <div className=" px-2 flex md:flex-row   flex-col justify-between md:items-center items-start w-[20vw] ">
+                    <div className="  flex flex-col justify-between h-full w-[14vw] ">
 
-                        <p className="songname-queue">{song.name}</p>
-                        <p className="wrapper artist-queue ">
+                        <p className="wrapper songname-queue md:text-sm">{song.name}</p>
+                        <p className="wrapper artist-queue md:text-xs text-[0.6rem] md:block hidden">
                             {song.artist}
                         </p>
                         </div>
