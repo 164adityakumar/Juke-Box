@@ -8,54 +8,58 @@ import { newQueuesong } from "../search/atom";
 import { ScrollArea } from "../ui/scroll-area";
 import { get } from "http";
 import { randomBytes } from "crypto";
+import {  FinalQueueState } from "./atom";
 
 export function Queue() {
     const [roomId] = useRecoilState(RoomId);
     const [newQsong] = useRecoilState(newQueuesong);
     const [getSongQueue, setgetSongQueue] = useState<any[]>([]);
-    const [FinalQueue, setFinalQueue] = useState<any[]>([]);
+    
+    const [FinalQueue, setFinalQueue] = useRecoilState<any[]>(FinalQueueState);
 
-   useEffect(() => {
-    axios.get(`${process.env.API_URL}/api/rooms/${roomId}/getQueue`).then(async (res) => {
-        // setgetQueue(res.data);
+    useEffect(() => {
+        if (!roomId) {
+            return;
+        }
 
-        const fetchSongs = async () => {
-            try {
-                // console.log(getQueue);
-                // console.log(res.data);
-                const songsData = await Promise.all(res.data.map(async (songId:string) => {
-                    if (!roomId) {
-                        return;
-                    }
-                    if (!songId || songId==="trigger") {
-                        return null;
-                    }
-                    // console.log(songId);
-                    return await API.getTrackfromId(String(songId));
-                }));
-                // console.log(songsData);
+        axios.get(`${process.env.API_URL}/api/rooms/${roomId}/getQueue`).then(async (res) => {
+            // setgetQueue(res.data);
 
-                const QueueData = songsData
-                    .filter((song: any) => song !== null)
-                    .map((song: any) => ({
-                        id: song.data.data[0].id,
-                        name: song.data.data[0].name,
-                        artist: song.data.data[0].artists.primary.map((artist: any) => artist.name).join(" · "),
-                        image: [song.data.data[0].image[0].url, song.data.data[0].image[1].url, song.data.data[0].image[2].url],
-                        duration: song.data.data[0].duration || 0,
-                        plays: song.data.data[0].playCount || 0,
+            const fetchSongs = async () => {
+                try {
+                    // console.log(getQueue);
+                    // console.log(res.data);
+                    const songsData = await Promise.all(res.data.map(async (songId: string) => {
+                        if (!songId || songId === "trigger") {
+                            return null;
+                        }
+                        // console.log(songId);
+                        return await API.getTrackfromId(String(songId));
                     }));
+                    // console.log(songsData);
 
-                setgetSongQueue(QueueData as any);
-                setFinalQueue(QueueData as any);
-            } catch (error) {
-                console.error("Error fetching songs:", error);
-            }
-        };
+                    const QueueData = songsData
+                        .filter((song: any) => song !== null)
+                        .map((song: any) => ({
+                            id: song.data.data[0].id,
+                            name: song.data.data[0].name,
+                            artist: song.data.data[0].artists.primary.map((artist: any) => artist.name).join(" · "),
+                            image: [song.data.data[0].image[0].url, song.data.data[0].image[1].url, song.data.data[0].image[2].url],
+                            duration: song.data.data[0].duration || 0,
+                            plays: song.data.data[0].playCount || 0,
+                            downloadUrl: song.data.data[0].downloadUrl[2].url,
+                        }));
 
-        fetchSongs();
-    });
-}, [roomId]);
+                    setgetSongQueue(QueueData as any);
+                    setFinalQueue(QueueData as any);
+                } catch (error) {
+                    console.error("Error fetching songs:", error);
+                }
+            };
+
+            fetchSongs();
+        });
+    }, [roomId]);
 
 
     useEffect(() => {
@@ -72,6 +76,7 @@ export function Queue() {
                     image: [newSong.image[0].url, newSong.image[1].url, newSong.image[2].url],
                     duration: newSong.duration || 0,
                     plays: newSong.playCount || 0,
+                    downloadUrl: newSong.downloadUrl[2].url,
                 };
                 console.log(newSongData);
                 setFinalQueue([...getSongQueue, newSongData]);

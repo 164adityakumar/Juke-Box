@@ -1,4 +1,4 @@
-import { NextRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 
 export class WebSocketManager {
 
@@ -6,6 +6,11 @@ export class WebSocketManager {
 
     private connect() {
         this.ws = new WebSocket(`${process.env.WS_URL}`);
+
+        this.ws.onclose = () => {
+            console.log('WebSocket closed');
+            
+        };
     }
 
     handleRoomJoin(roomId: string, router: NextRouter) {
