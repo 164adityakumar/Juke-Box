@@ -25,12 +25,12 @@ export function AudioPlayer() {
     };
 
     return (
-        <div className='bg-[#2b3662ca] p-3'>
-                        {songs.length === 0 ? (
+        <div  className='bg-[#2b3662ca] p-[1px]'>
+                        {/* {songs.length === 0 ? (
                             <p>No songs in the queue</p>
-            ) : (            
+            ) : ( */}
                             <ReactAudioPlayer                                src={currentSong?.downloadUrl || ""}
-                                autoPlay
+                                            autoPlay
                                 onEnded={handleSongEnd}
                                 preload="auto"
                                 controls
@@ -39,7 +39,7 @@ export function AudioPlayer() {
                                 controlsList='nodownload nofullscreen noremoteplayback noshare noplaybackrate nozoom noopenwith nocontextmenu noresumedisplay noseeking noremoteplayback' 
                             />
                             
-                        )}
+                        {/* )} */}
         </div>
     );
 }

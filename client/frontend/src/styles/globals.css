@@ -9,10 +9,24 @@
 
 
   .gradient-background {
-    background: linear-gradient(260deg,#0b121f,#121b32,#171232,#19102a,#172238,#081435);
+    background: linear-gradient(260deg,#0b121f,#0b111f,#0e0b1f,#19102a,#101827,#060f29);
     background-size: 360% 360%;
     animation: gradient-animation 18s ease infinite;
   }
+
+  
+  .logo-background {
+    background: linear-gradient(60deg,#294372,#2e4e9f,#2c2360,#38245d,#0e295a,#163384);
+    background-size: 360% 360%;
+    animation: gradient-animation 18s ease infinite;
+    /* background-color: #213562; */
+    font-family: "Righteous", sans-serif;
+    font-weight: 500;
+    letter-spacing: -2.8px;
+    font-size: 2rem;
+    color: #ffffffaf;
+    /* text-shadow: 0 0 5px rgba(137, 164, 243, 0.678); */
+    }
   
   @keyframes gradient-animation {
     0% {
@@ -102,7 +116,7 @@
 
   .Juke{
     font-family: "Jersey 15", sans-serif;
-    font-weight: 800;
+    font-weight: 600;
   }
 
 .songname {
@@ -185,6 +199,7 @@
 .artwork .cover {
   display: block;
   width: 100%;
+  
   height: auto;
   animation: spin 5s infinite linear;
   border-radius: 50%;
@@ -195,8 +210,6 @@
     transform: rotate(360deg);
   }
 }
-
-
 
 ::-webkit-scrollbar-track
 {
@@ -226,5 +239,3 @@ audio::-webkit-media-controls-panel
   background: #16286e89;
   border-radius: 0px;
 }
-
-

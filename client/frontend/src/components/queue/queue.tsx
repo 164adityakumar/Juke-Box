@@ -111,7 +111,7 @@ export function Queue() {
         }
     };
     return (
-        <div className="flex flex-col h-[90vh] overflow-y-auto overflow-x-hidden">
+        <ScrollArea className="flex flex-col h-[76vh] overflow-y-auto overflow-x-hidden">
             
             {FinalQueue.map((song: any, index: number) => (
                 <div
@@ -134,6 +134,7 @@ export function Queue() {
                     
                 </div>
             ))}
-        </div>
+
+        </ScrollArea>
     );
 }

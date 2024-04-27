@@ -111,7 +111,7 @@ useEffect(() => {
     };
 
     return (
-        <div className="p-3 relative z-30">
+        <div className="p-3 relative z-30 h-full">
             <div className="relative"></div>
                 <form onSubmit={searchBtnHandler.search}>
                     <div className="flex flex-row relative ">
@@ -132,7 +132,7 @@ useEffect(() => {
                 </form>
 
                 {showSearch && (
-                    <div className="results flex flex-col absolute h-[60vh] overflow-y-scroll w-full z-50 overflow-hidden rounded-md border bg-popover  shadow-lg  bg-slate-900 transition-colors ">
+                    <div className="results flex flex-col absolute h-[60vh] overflow-y-scroll  z-50 overflow-hidden rounded-md border bg-popover  shadow-lg  bg-slate-900 transition-colors ">
                         {searchResults.map((track: any) => (
                             <div
                                 key={track.id}
@@ -152,7 +152,7 @@ useEffect(() => {
                         ))}
                     </div>
                 )}
-            <div className="relative z-0">
+            <div className="relative z-0 pt-2 ">
                 <Player />
             </div>
         </div>
