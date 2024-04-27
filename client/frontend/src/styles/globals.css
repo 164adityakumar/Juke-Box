@@ -136,3 +136,95 @@
   overflow: hidden;
 }
 
+.artwork {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  justify-items: center;
+  box-shadow: 0 .3em .7em rgba(0,0,0,.25);
+  /* border: 2px solid rgba(255, 255, 255, 0.449); */
+  margin: 1em;
+  /* width: 70%; */
+  /* height: 70%; */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+}
+
+.artwork:before {
+  content: '';
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: url(https://res.cloudinary.com/amogl/image/upload/v1489850644/Codepen/Disks/shine.png) center no-repeat;
+  background-size: cover;
+  mix-blend-mode: overlay;
+  border-radius: 50%;
+}
+
+.artwork:after {
+  content: '';
+  padding:1em;
+  background: rgb(213, 200, 255);
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 8px solid rgba(0, 0, 0, 0.449);
+  box-shadow: inset 0 .2em .2em rgba(0,0,0,.25);
+}
+
+.artwork .cover {
+  display: block;
+  width: 100%;
+  height: auto;
+  animation: spin 5s infinite linear;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #425c7caf;
+}
+
+::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #070a179f;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #88b4ffbd;
+}
+
+audio::-webkit-media-controls-panel
+{
+  /* background-color: #869eff; */
+  color: #ffffff00;
+  background: #16286e89;
+  border-radius: 0px;
+}
+
+

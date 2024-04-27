@@ -111,11 +111,12 @@ export function Queue() {
         }
     };
     return (
-        <ScrollArea className="flex flex-col h-[90vh]">
+        <div className="flex flex-col h-[90vh] overflow-y-auto overflow-x-hidden">
+            
             {FinalQueue.map((song: any, index: number) => (
                 <div
                     key={randomBytes(4).toString("hex")}
-                    className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer w-full"
+                    className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border bg-slate-950 border-slate-800 cursor-pointer w-full"
                     style={{ animationDelay: `${index * 0.2}s` }}
                 >
                     <img src={song.image[1]} alt={song.name} className="rounded-sm w-10 content-stretch aspect-square h-10" />
@@ -133,6 +134,6 @@ export function Queue() {
                     
                 </div>
             ))}
-        </ScrollArea>
+        </div>
     );
 }

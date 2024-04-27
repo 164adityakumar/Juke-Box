@@ -8,6 +8,7 @@ import { wsManager } from '@/utils/ws';
 
 import { ScrollArea } from "../ui/scroll-area";
 import { data ,newQueuesong} from './atom';
+import { Player } from '../player/player';
 
 
 export function Search (){
@@ -110,31 +111,50 @@ useEffect(() => {
     };
 
     return (
-        <div className="p-2 ">
-            
-            <form onSubmit={searchBtnHandler.search}>
-                <div className="flex flex-row">
-                    <Input type='search' placeholder='Search for a track' name='input' className=" rounded-tl-3xl rounded-bl-3xl bg-gradient-to-r from-slate-700 from-10%  via-slate-800 via-50%  to-slate-700 to-100%  border border-slate-600"  />
-                    <Button type='submit' onClick={toggleSearch} className=" search rounded-none rounded-tr-3xl rounded-br-3xl">Search</Button>
-                </div>
-            </form>
+        <div className="p-3 relative z-30">
+            <div className="relative"></div>
+                <form onSubmit={searchBtnHandler.search}>
+                    <div className="flex flex-row relative ">
+                        <Input
+                            type="search"
+                            placeholder="Search for a track"
+                            name="input"
+                            className="rounded-tl-3xl rounded-bl-3xl bg-gradient-to-r from-slate-700 from-10%  via-slate-800 via-50%  to-slate-700 to-100%  border border-slate-600"
+                        />
+                        <Button
+                            type="submit"
+                            onClick={toggleSearch}
+                            className="search rounded-none rounded-tr-3xl rounded-br-3xl"
+                        >
+                            Search
+                        </Button>
+                    </div>
+                </form>
 
-            {showSearch && (
-                <ScrollArea className="results flex flex-col h-[60vh] overflow-y-scroll relative  w-full z-50 overflow-hidden rounded-md border bg-popover  shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-slate-900 transition-colors " >
-                    {searchResults.map((track: any) => (
-                        <div key={track.id} onClick={() =>{ handleSongClick(track)}} className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer">
-                            <img src={track.image[1]} alt={track.name} className=" rounded-sm w-12" />
-                            <div className="px-2 flex flex-col justify-between ">
-                                <p className="songname">{track.name}</p>
-                                <p className="artist"> {track.artist} · {formatTime(track.duration)} · {formatCount(track.plays)}</p> 
+                {showSearch && (
+                    <div className="results flex flex-col absolute h-[60vh] overflow-y-scroll w-full z-50 overflow-hidden rounded-md border bg-popover  shadow-lg  bg-slate-900 transition-colors ">
+                        {searchResults.map((track: any) => (
+                            <div
+                                key={track.id}
+                                onClick={() => {
+                                    handleSongClick(track);
+                                }}
+                                className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border border-slate-800 cursor-pointer"
+                            >
+                                <img src={track.image[1]} alt={track.name} className="rounded-sm w-12" />
+                                <div className="px-2 flex flex-col justify-between ">
+                                    <p className="songname">{track.name}</p>
+                                    <p className="artist">
+                                        {track.artist} · {formatTime(track.duration)} · {formatCount(track.plays)}
+                                    </p>
+                                </div>
                             </div>
-                            {/* {JSON.stringify(Data)} */}
-                            {/* {track.image} */}
-                        </div>
-                    ))}
-                </ScrollArea>
-            )}
-            
+                        ))}
+                    </div>
+                )}
+            <div className="relative z-0">
+                <Player />
+            </div>
         </div>
     );
     

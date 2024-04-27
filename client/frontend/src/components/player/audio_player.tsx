@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import ReactAudioPlayer from 'react-audio-player';
 import { useRecoilState } from 'recoil';
 import { FinalQueueState } from '../queue/atom';
+import { CurrentSongState } from './atom';
+import ReactH5AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import ReactAudioPlayer from 'react-audio-player';
 var Peer = require('simple-peer')
 
 export function AudioPlayer() {
     const [songs, setSongs] = useRecoilState<any[]>(FinalQueueState);
-    const [currentSong, setCurrentSong] = useState(songs[0]
+    const [currentSong, setCurrentSong] = useRecoilState<any>(CurrentSongState);
         
-    );
-
-
+    if (songs.length > 0)
+        setCurrentSong(songs[0]);
 
     const handleSongEnd = () => {
         if (songs.length === 0) {
@@ -22,25 +24,22 @@ export function AudioPlayer() {
         setSongs(songs.slice(1));
     };
 
-
     return (
-        <div>
-            {songs.length === 0 ? (
-                // Queue is empty, show a message or placeholder
-                <p>No songs in the queue</p>
-            ) : (
-                <ReactAudioPlayer
-                    style={{
-                        borderRadius: "0px",
-                        width: "100%",
-                    }}
-                    src={currentSong.downloadUrl || ""}
-                    autoPlay
-                    onEnded={handleSongEnd}
-                    controls
-                
-                />
-            )}
+        <div className='bg-[#2b3662ca] p-3'>
+                        {songs.length === 0 ? (
+                            <p>No songs in the queue</p>
+            ) : (            
+                            <ReactAudioPlayer                                src={currentSong?.downloadUrl || ""}
+                                autoPlay
+                                onEnded={handleSongEnd}
+                                preload="auto"
+                                controls
+                                className='w-full
+                                '
+                                controlsList='nodownload nofullscreen noremoteplayback noshare noplaybackrate nozoom noopenwith nocontextmenu noresumedisplay noseeking noremoteplayback' 
+                            />
+                            
+                        )}
         </div>
     );
 }
