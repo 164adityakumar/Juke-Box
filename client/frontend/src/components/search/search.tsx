@@ -111,8 +111,8 @@ useEffect(() => {
     };
 
     return (
-        <div className="p-3 relative z-30 h-full">
-            <div className="relative"></div>
+        
+            <div className="  p-2 ">
                 <form onSubmit={searchBtnHandler.search}>
                     <div className="flex flex-row relative ">
                         <Input
@@ -152,10 +152,9 @@ useEffect(() => {
                         ))}
                     </div>
                 )}
-            <div className="relative z-0 pt-2 ">
-                <Player />
-            </div>
-        </div>
+                </div>
+           
+        
     );
     
 }

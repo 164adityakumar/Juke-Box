@@ -111,7 +111,7 @@ export function Queue() {
         }
     };
     return (
-        <ScrollArea className="flex flex-col h-[76vh] overflow-y-auto overflow-x-hidden">
+        <ScrollArea className="flex flex-col overflow-y-auto overflow-x-hidden border-r-2 h-full shadow- ">
             
             {FinalQueue.map((song: any, index: number) => (
                 <div
@@ -121,7 +121,7 @@ export function Queue() {
                 >
                     <img src={song.image[1]} alt={song.name} className="rounded-sm w-10 content-stretch aspect-square h-10" />
                   
-                    <div className=" px-2 flex md:flex-row   flex-col justify-between md:items-center items-start w-[20vw] ">
+                    <div className=" px-2 flex md:flex-row   flex-col justify-between md:items-center items-start w-[24vw] ">
                     <div className="  flex flex-col justify-between h-full w-[14vw] ">
 
                         <p className="wrapper songname-queue md:text-sm">{song.name}</p>

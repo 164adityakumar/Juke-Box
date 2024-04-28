@@ -15,16 +15,16 @@
   }
 
   
-  .logo-background {
-    background: linear-gradient(60deg,#294372,#2e4e9f,#2c2360,#38245d,#0e295a,#163384);
+  .logo {
+    /* background: linear-gradient(60deg,#294372,#2e4e9f,#2c2360,#38245d,#0e295a,#163384);
     background-size: 360% 360%;
-    animation: gradient-animation 18s ease infinite;
+    animation: gradient-animation 18s ease infinite; */
     /* background-color: #213562; */
-    font-family: "Righteous", sans-serif;
-    font-weight: 500;
-    letter-spacing: -2.8px;
-    font-size: 2rem;
-    color: #ffffffaf;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    /* letter-spacing: -2.8px; */
+    font-size: 1.5rem;
+    color: #ffffffde;
     /* text-shadow: 0 0 5px rgba(137, 164, 243, 0.678); */
     }
   
@@ -151,35 +151,35 @@
 }
 
 .artwork {
-  display: inline-block;
-  position: relative;
+  /* display: inline-block; */
+  /* position: relative; */
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 5%;
   justify-items: center;
-  box-shadow: 0 .3em .7em rgba(0,0,0,.25);
-  /* border: 2px solid rgba(255, 255, 255, 0.449); */
+  box-shadow: 0 .3em .7em rgba(0, 0, 0, 0.374);
+  border: 1px solid rgba(255, 255, 255, 0.029);
   margin: 1em;
-  /* width: 70%; */
-  /* height: 70%; */
+  width: auto;
+  /* height: 0%; */
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
+  
 }
 
 .artwork:before {
   content: '';
-  position: absolute;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  /* display: flex;
+  flex-direction: column; */
+  
 
-  width: 100%;
-  height: 100%;
-  z-index: 2;
+  z-index: 50;
   background: url(https://res.cloudinary.com/amogl/image/upload/v1489850644/Codepen/Disks/shine.png) center no-repeat;
   background-size: cover;
   mix-blend-mode: overlay;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 
 .artwork:after {
@@ -198,17 +198,18 @@
 
 .artwork .cover {
   display: block;
-  width: 100%;
-  
-  height: auto;
+  /* width: 79%; */
+
+  height: 70%;
   animation: spin 5s infinite linear;
   border-radius: 50%;
+  box-shadow: 0 .3em .7em rgba(0, 0, 0, 0.489);
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
-  }
+    }
 }
 
 ::-webkit-scrollbar-track
@@ -238,4 +239,16 @@ audio::-webkit-media-controls-panel
   color: #ffffff00;
   background: #16286e89;
   border-radius: 0px;
+}
+
+
+.glass{
+  background:
+        linear-gradient(132deg, rgba(69, 69, 69, 0.222) 0%, rgba(62, 62, 62, 0.425) 20%, rgba(43,54,98,0.79) 70%, rgba(43,54,98,0.79));
+      border-bottom: solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar-bg{
+  background: #222e5dc4;
+  box-shadow:#101827;
 }
