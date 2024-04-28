@@ -119,12 +119,12 @@ useEffect(() => {
                             type="search"
                             placeholder="Search for a track"
                             name="input"
-                            className="rounded-tl-3xl rounded-bl-3xl bg-gradient-to-r from-slate-700 from-10%  via-slate-800 via-50%  to-slate-700 to-100%  border border-slate-600"
+                            className="rounded-tl-xl rounded-bl-xl bg-gradient-to-r from-slate-700 from-10%  via-slate-800 via-50%  to-slate-700 to-100%  border border-slate-600"
                         />
                         <Button
                             type="submit"
                             onClick={toggleSearch}
-                            className="search rounded-none rounded-tr-3xl rounded-br-3xl"
+                            className="search rounded-none rounded-tr-xl rounded-br-xl"
                         >
                             Search
                         </Button>
