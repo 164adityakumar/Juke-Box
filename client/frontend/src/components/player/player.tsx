@@ -20,11 +20,11 @@ export function Player() {
           <img src="/cd.png" className=" rounded-full border-2 border-indigo-300 border-opacity-30 w-[7%]" />
         )}
       </div> */}
-      <div className="flex flex-row justify-center items-center h-[81vh] w-[80vh] scale-[0.85] pb-20 artwork">
+      <div className="flex flex-row justify-center items-center h-[81vh] w-[80vh] scale-[0.85] pb-20 artwork ">
       {currentSong?.image?.[2] ? (
-          <img src={currentSong?.image?.[2]} className=" rounded-full border-2 border-indigo-300 border-opacity-30  cover" />
+          <img src={currentSong?.image?.[2]} className=" rounded-full border-2 border-[#98989844] border-opacity-30  cover" />
         ) : (
-          <img src="/cd.png" className=" rounded-full border-2 border-indigo-300 border-opacity-30 cover" />
+          <img src="/vinyl-record.png" className=" rounded-full border-2 border-[#9898982d] border-opacity-30 cover" />
         )}
       </div>
     </div>

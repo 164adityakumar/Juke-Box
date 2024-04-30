@@ -112,14 +112,14 @@ useEffect(() => {
 
     return (
         
-            <div className="  p-2 ">
+            <div className="  p-2 w-[45vw]">
                 <form onSubmit={searchBtnHandler.search}>
                     <div className="flex flex-row relative ">
                         <Input
                             type="search"
                             placeholder="Search for a track"
                             name="input"
-                            className="rounded-tl-xl rounded-bl-xl bg-gradient-to-r from-slate-700 from-10%  via-slate-800 via-50%  to-slate-700 to-100%  border border-slate-600"
+                            className="rounded-tl-xl rounded-bl-xl bg-gradient-to-r from-[#3ca8b428] from-10%  via-slate-800 via-50%  to-slate-700 to-100%  border border-slate-600"
                         />
                         <Button
                             type="submit"
@@ -132,7 +132,9 @@ useEffect(() => {
                 </form>
 
                 {showSearch && (
-                    <div className="results flex flex-col absolute h-[60vh] overflow-y-scroll  z-50 overflow-hidden rounded-md border bg-popover  shadow-lg  bg-slate-900 transition-colors ">
+                    <div className="results w-[43.5vw] flex flex-col absolute h-[60vh] overflow-y-scroll  z-50 overflow-hidden rounded-md border bg-popover  shadow-lg bg-gradient-to-r from-[#3ca8b428] from-10%  via-slate-900 via-50%  to-slate-900 to-100% 
+                    
+                    transition-colors ">
                         {searchResults.map((track: any) => (
                             <div
                                 key={track.id}

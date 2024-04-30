@@ -25,7 +25,7 @@ export function AudioPlayer() {
     };
 
     return (
-        <div  className='bg-[#2b3662ca] p-[1px]'>
+        <div  className='audioplayer p-[1px]'>
                         {/* {songs.length === 0 ? (
                             <p>No songs in the queue</p>
             ) : ( */}
