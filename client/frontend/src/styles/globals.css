@@ -14,7 +14,7 @@
     --body-500: #06090f;
     --body-300: #06090f;
     --body-100: #06090f;
-    --aurora-100: #812856c2;
+    --aurora-100: #a1376ec2;
     --aurora-300: #39a7b3ae;
     --aurora-500: #39a7b3ae;
     --aurora-700: #1c6b7454;
@@ -274,7 +274,7 @@
   
   animation: spin 5s infinite linear;
   border-radius: 50%;
-  box-shadow: 0 .3em .7em rgba(0, 0, 0, 0.489);
+  box-shadow: 0 .3em .5em rgba(0, 0, 0, 0.489);
 }
 
 @keyframes spin {
@@ -342,3 +342,44 @@
     border-bottom: solid #9898982d 1px;
 
 }
+
+
+
+#bars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+/*     background: black; */
+}
+
+.bar {
+  background: rgb(131, 145, 159);
+  bottom: 1px;
+  height: 1px;
+  width: 2px;
+  margin: 0px 1.2px;
+  border-radius: 10px;
+  animation: sound 0ms -800ms linear infinite alternate;
+}
+
+@keyframes sound {
+  0% {
+     opacity: .35;
+      height: 3px; 
+  }
+  100% {
+      opacity: 1;       
+      height: 13px;        
+  }
+}
+
+.bar:nth-child(1)  { left: 1px; animation-duration: 474ms; }
+.bar:nth-child(2)  { left: 15px; animation-duration: 407ms; }
+.bar:nth-child(3)  { left: 29px; animation-duration: 433ms; }
+.bar:nth-child(4)  { left: 43px; animation-duration: 458ms; }
+.bar:nth-child(5)  { left: 57px; animation-duration: 400ms; }
+.bar:nth-child(6)  { left: 71px; animation-duration: 427ms; }
+.bar:nth-child(7)  { left: 85px; animation-duration: 441ms; }
+.bar:nth-child(8)  { left: 99px; animation-duration: 419ms; }
+.bar:nth-child(9)  { left: 113px; animation-duration: 487ms; }
+.bar:nth-child(10) { left: 127px; animation-duration: 442ms; }

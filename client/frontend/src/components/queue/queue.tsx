@@ -116,20 +116,31 @@ export function Queue() {
             {FinalQueue.map((song: any, index: number) => (
                 <div
                     key={randomBytes(4).toString("hex")}
-                    className="flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border bg-slate-950 border-slate-800 cursor-pointer w-full"
+                    className={`flex flex-row relative px-2 py-1.5 text-sm outline-none transition-transform hover:bg-accent hover:text-accent-foreground border-b   cursor-pointer w-full ${index === 0 ? 'bg-slate-800 border-slate-900' : 'bg-slate-950 border-slate-800'}`}
                     style={{ animationDelay: `${index * 0.2}s` }}
                 >
                     <img src={song.image[1]} alt={song.name} className="rounded-sm w-10 content-stretch aspect-square h-10" />
                   
                     <div className=" px-2 flex md:flex-row   flex-col justify-between md:items-center items-start w-[24vw] ">
-                    <div className="  flex flex-col justify-between h-full w-[14vw] ">
+                    <div className={`flex flex-col justify-between h-full  ${index === 0 ? 'w-[12vw]' : 'w-[14vw]'}`}>
 
                         <p className="wrapper songname-queue md:text-sm">{song.name}</p>
                         <p className="wrapper artist-queue md:text-xs text-[0.6rem] md:block hidden">
                             {song.artist}
                         </p>
                         </div>
-                        <div className="text-slate-400">{formatTime(song.duration)}</div>
+                        <div className="text-slate-400 flex flex-row gap-8">
+                        {index === 0 ? <div id="bars">
+  <div className="bar"></div>
+  <div className="bar"></div>
+  <div className="bar"></div>
+  <div className="bar"></div>
+  <div className="bar"></div>
+  <div className="bar"></div>
+</div> : null}
+                            {formatTime(song.duration)}
+                            
+                            </div>
                     </div>
                     
                 </div>

@@ -24,7 +24,7 @@ export function Player() {
       {currentSong?.image?.[2] ? (
           <img src={currentSong?.image?.[2]} className=" rounded-full border-2 border-[#98989844] border-opacity-30  cover" />
         ) : (
-          <img src="/vinyl-record.png" className=" rounded-full border-2 border-[#9898982d] border-opacity-30 cover" />
+          <img src="/vinyl-record.png" className=" rounded-full border-2 border-[#9898982d] border-opacity-30 cover opacity-70" />
         )}
       </div>
     </div>

@@ -14,8 +14,19 @@ export default function Room() {
     <div className="aurora-two"></div>
     <div className="aurora-three"></div>
 
-      <div className="z-50 navbar-bg flex flex-col items-center    fixed top-0 left-0 right-0">
-        {/* <div className="w-[34%]"></div> */}
+      <div className="z-50 navbar-bg flex flex-row items-center    fixed top-0 left-0 right-0">
+        <div className="w-[34%] flex flex-row items-center pl-4">
+          <Image src="/logo2.svg" alt="logo" width={35} height={35} />
+          <h1 style={{
+            fontFamily:'Sora',
+            fontWeight: 600,
+            color: '#ffffffe0',
+            fontSize: '1.1rem',
+            letterSpacing: '0.1rem',
+            paddingTop: '0.1rem',
+            paddingLeft: '0.3rem',
+          }}>JUKEBOX</h1>
+        </div>
 
         <div className="w-[45%]">
           {" "}
