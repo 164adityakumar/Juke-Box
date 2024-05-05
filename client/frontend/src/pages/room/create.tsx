@@ -114,7 +114,7 @@ export function CardWithForm() {
         <form>
           <div className="flex flex-col  w-full items-center gap-4 ">
             <div className="flex flex-row items-center justify-center gap-4  w-full ml-11">
-            <div className=" rounded-lg bg-slate-300">         
+            <div className=" rounded-lg bg-slate-600">         
             <Avatar /> 
             </div>
             <Button variant="outline" className="rounded-full w-9 " onClick={handleAvatarRefresh}>
