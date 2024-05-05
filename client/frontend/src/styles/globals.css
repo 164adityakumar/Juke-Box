@@ -14,9 +14,9 @@
     --body-500: #06090f;
     --body-300: #06090f;
     --body-100: #06090f;
-    --aurora-100: #a1376ec2;
-    --aurora-300: #39a7b3ae;
-    --aurora-500: #39a7b3ae;
+    --aurora-100: #b94480ca;
+    --aurora-300: #47c1cfae;
+    --aurora-500: #41bfcdae;
     --aurora-700: #1c6b7454;
     --aurora-900: #1c6b7454;
 }
@@ -272,7 +272,7 @@
 
 .artwork .cover {
   
-  animation: spin 5s infinite linear;
+  animation: spin 7s infinite linear;
   border-radius: 50%;
   box-shadow: 0 .3em .5em rgba(0, 0, 0, 0.489);
 }
@@ -326,7 +326,7 @@
 
 .player{
   background:
-  linear-gradient(132deg, #ababab06 0%, #41414137 20%, #cacaca26 70%, #ababab06 100%);
+  linear-gradient(132deg, #ababab28 0%, #7f7f7f63 20%, #cacaca26 70%, #ababab06 100%);
  
   border: solid rgba(255, 255, 255, 0.081) 0.5px;
 }

@@ -21,14 +21,19 @@ import {
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 import axios from "axios";
 import { atom, useRecoilState } from "recoil";
-import { useRouter } from 'next/router'
-import { wsManager } from "@/utils/ws";
+import { useRouter } from "next/router";
+  import { wsManager } from "@/utils/ws";
 import { newQueuesong } from "@/components/search/atom";
+import { useEffect } from "react";
 
+var bandname = require('bandname');
+
+import { Avatar } from "@/components/avatar/avatar";
+import { username,avatarRefersh } from "@/components/avatar/atom";
 
 
 export function InputOTPControlled() {
-
+  
   const [value, setValue] = useRecoilState(RoomId)
  
   return (
@@ -63,12 +68,26 @@ export function InputOTPControlled() {
 
 export function CardWithForm() {
  
-
+  const [Username, setUsername] = useRecoilState(username)
 
   const [roomId] = useRecoilState(RoomId)
   const [,setnewSong]=useRecoilState(newQueuesong)
   const router = useRouter()
   
+  const [AvatarRefresh, setAvatarRefresh] = useRecoilState(avatarRefersh);
+
+  function handleAvatarRefresh(event: React.MouseEvent) {
+    event.preventDefault();
+    setUsername(bandname());
+    setAvatarRefresh(true);
+  }
+
+  useEffect(() => {
+    if (AvatarRefresh) {
+      setAvatarRefresh(false);
+    }
+  }, [AvatarRefresh]);
+
   function handleRoomCreation() {
     axios.post(`${process.env.API_URL}/api/rooms/create`, {
       roomId: roomId
@@ -81,19 +100,34 @@ export function CardWithForm() {
     });
   
   }
+
+  
   
   return (
     <Card className="w-[350px] bg-opacity-80 border-slate-800 ">
-      <CardHeader>
+      <CardHeader className="border-b-2 pb-4 mb-5">
         <CardTitle>Create Room</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardDescription>Create a new Room in one-click.</CardDescription>
       </CardHeader>
       <CardContent>
+
         <form>
           <div className="flex flex-col  w-full items-center gap-4 ">
+            <div className="flex flex-row items-center justify-center gap-4  w-full ml-11">
+            <div className=" rounded-lg bg-slate-300">         
+            <Avatar /> 
+            </div>
+            <Button variant="outline" className="rounded-full w-9 " onClick={handleAvatarRefresh}>
+            <span className="material-symbols-outlined opacity-70">
+cached
+</span>
+            </Button>
+
+            </div>
+            
             <div className="flex flex-col space-y-1.5 w-[15.3rem]">
-              <Label htmlFor="name">Room Name</Label>
-              <Input id="name" placeholder="Name your Vibe room" className="border-slate-500 p-5" />
+              {/* <Label htmlFor="name">Username</Label> */}
+              <Input id="name" placeholder="Name yourself" defaultValue={Username} className="border-slate-500 p-5 rounded-md" onChange={(e) => setUsername(e.target.value)} />
             </div>
             <div className=" space-y-1.5">
               <InputOTPControlled />              
