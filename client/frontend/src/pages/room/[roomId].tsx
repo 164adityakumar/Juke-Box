@@ -34,8 +34,8 @@ export default function Room() {
         </div>
         <div className="w-[30%]"></div>
       </div>
-      <div className=" h-full w-full  flex flex-row pt-[3.22rem] pb-[3.58rem] ">
-        <div className="flex flex-col m-2  rounded-[2.5rem] py-[1.5vw]  player">
+      < div className=" h-full w-full  flex flex-row pt-[3.22rem] pb-[3.58rem] ">
+        <div className="flex flex-col m-2  rounded-[1.5rem] py-[1.5vw]  player">
           <Player />
         </div>
         <div className=" h-full  w-[45%] border-l">

@@ -18,7 +18,7 @@ export default function Login() {
       <h2 className="Juke text-white  text-7xl sm:text-8xl font-bold text-center">
         Juke Box
       </h2>
-      
+ 
       <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
       <button className="bg-zinc-700  no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px  text-xs font-semibold leading-6  text-white inline-block" onClick={()=>{router.push("/room/create")}}>
   <span className="absolute inset-0 overflow-hidden rounded-full">

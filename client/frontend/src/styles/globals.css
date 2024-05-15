@@ -259,7 +259,7 @@
 .artwork:after {
   content: '';
   padding:1em;
-  background: rgb(213, 200, 255);
+  background: rgb(255, 200, 205);
   z-index: 50;
   position: absolute;
   top: 50%;
@@ -326,15 +326,15 @@
 
 .player{
   background:
-  linear-gradient(132deg, #ababab28 0%, #7f7f7f63 20%, #cacaca26 70%, #ababab06 100%);
+  linear-gradient(132deg, rgba(171, 171, 171, 0.107) 0%, #6a798563 20%, #cacaca26 70%, #ababab17 100%);
  
-  border: solid rgba(255, 255, 255, 0.081) 0.5px;
+  border: solid rgba(121, 121, 121, 0.081) 0.5px;
 }
 
 .navbar-bg{
   background: #090c1833;
   box-shadow:#101827;
-  border-bottom: solid rgba(152, 152, 152, 0.177) 1px;
+  border-bottom: solid rgba(152, 152, 152, 0.177) 1.5px;
 
 }
 

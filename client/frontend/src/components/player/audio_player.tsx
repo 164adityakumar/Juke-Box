@@ -36,7 +36,7 @@ export function AudioPlayer() {
                                 controls
                                 className='w-full
                                 '
-                                controlsList='nodownload nofullscreen noremoteplayback noshare noplaybackrate nozoom noopenwith nocontextmenu noresumedisplay noseeking noremoteplayback' 
+                                controlsList='nofullscreen noremoteplayback noshare noplaybackrate nozoom noopenwith nocontextmenu noresumedisplay noseeking noremoteplayback' 
                             />
                             
                         {/* )} */}
