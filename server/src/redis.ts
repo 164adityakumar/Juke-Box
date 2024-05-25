@@ -120,6 +120,10 @@ export class RedisSubscriptionManager {
         this.subscriptions.set(roomId, songQueue);
     }
 
+    setRoomControl(roomId: string, control: string) {
+        // Update the control state for the room
+        this.publisher.publish(roomId, JSON.stringify({ type: "control", payload: { control } }));
+    }
 
     getSongQueue(roomId: string) {
         // Get the current list of songs for the room

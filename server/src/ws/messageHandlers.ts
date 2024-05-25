@@ -73,3 +73,23 @@ export const handleAddToQueue = async (userId, data, ws) => {
         }));
     }
 };
+
+export const handlePlayerControl = async (userId, data, ws) => {
+    if (!ws) {
+        throw new Error('WebSocket is not defined');
+    }
+    const roomId = users[userId].room;
+    const control = data.payload.control;
+    
+    // Update the state of the room in Redis
+    await RedisSubscriptionManager.getInstance().setRoomControl(roomId, control);
+
+    // Notify all users in the room about the control change
+    const roomUsers = RedisSubscriptionManager.getInstance().getRoomUsers(roomId);
+    for (const user of Object.values<any>(roomUsers)) {
+        (user as any).ws.send(JSON.stringify({
+            type: "controlUpdate",
+            payload: control
+        }));
+    }
+};

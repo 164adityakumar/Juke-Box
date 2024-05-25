@@ -4,3 +4,8 @@ export const CurrentSongState = atom({
     key: 'currentSong',
     default: {},
 });
+
+export const Playerstate= atom({
+    key: 'playerState',
+    default: null,
+})

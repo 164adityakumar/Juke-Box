@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import { FinalQueueState } from '../queue/atom';
-import { CurrentSongState } from './atom';
-import ReactH5AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import { CurrentSongState, Playerstate } from './atom';
 import ReactAudioPlayer from 'react-audio-player';
-var Peer = require('simple-peer')
+import 'react-h5-audio-player/lib/styles.css';
+import { wsManager } from '@/utils/ws';
 
 export function AudioPlayer() {
     const [songs, setSongs] = useRecoilState<any[]>(FinalQueueState);
     const [currentSong, setCurrentSong] = useRecoilState<any>(CurrentSongState);
-        
+    const [playing, setPlaying] = useRecoilState(Playerstate);
+    const audioComponent = useRef<HTMLAudioElement | null>(null);
+
+
+    useEffect(() => {
+        console.log("Playing:", playing);
+        if (audioComponent.current) {
+            if (playing) {
+                audioComponent.current.play();
+            } else {
+                audioComponent.current.pause();
+            }
+        }
+    }, [playing]);
+
     if (songs.length > 0)
         setCurrentSong(songs[0]);
 
@@ -25,21 +38,19 @@ export function AudioPlayer() {
     };
 
     return (
-        <div  className='audioplayer p-[1px]'>
-                        {/* {songs.length === 0 ? (
-                            <p>No songs in the queue</p>
-            ) : ( */}
-                            <ReactAudioPlayer                                src={currentSong?.downloadUrl || ""}
-                                            autoPlay
-                                onEnded={handleSongEnd}
-                                preload="auto"
-                                controls
-                                className='w-full
-                                '
-                                controlsList='nofullscreen noremoteplayback noshare noplaybackrate nozoom noopenwith nocontextmenu noresumedisplay noseeking noremoteplayback' 
-                            />
-                            
-                        {/* )} */}
+        <div className='audioplayer p-[1px]'>
+            <audio
+                ref={audioComponent}
+                autoPlay
+                src={currentSong?.downloadUrl || ""}
+                onEnded={handleSongEnd}
+                preload="auto"
+                controls
+                className='w-full'
+                onPause={() => {wsManager.sendControl('pause',setPlaying,playing)}}
+                onPlay={() => {wsManager.sendControl('play',setPlaying,playing)}}
+                controlsList='nofullscreen noshare noplaybackrate nozoom noopenwith nocontextmenu noresumedisplay noseeking noremoteplayback' 
+            />
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { handleJoin, handleMessage, handleClose , handleAddToQueue} from './messageHandlers';
+import { handleJoin, handleMessage, handleClose , handleAddToQueue, handlePlayerControl} from './messageHandlers';
 import crypto from 'crypto';
 
 
@@ -17,6 +17,10 @@ export const handleConnection = async (ws, req) => {
         if(data.type === "addToQueue") {
             handleAddToQueue(userId, data, ws);
             console.log("Adding to queue", userId, data.payload.songId);
+        }
+        if(data.type==="control"){
+            handlePlayerControl(userId,data,ws);
+            console.log("Control",userId,data.payload.control);
         }
      
     });
