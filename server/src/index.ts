@@ -13,8 +13,10 @@ dotenv.config();
 
 const app = express();
 const port = 8080;
-app.use(cors());
-const server = http.createServer(app);
+app.use(cors({
+    origin: '*'
+  }));
+  const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
