@@ -93,7 +93,7 @@ export function CardWithForm() {
     roomId: roomId
   }, {
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': `${process.env.API_URL}`,
     }
   }).then((res) => {
     console.log(`Status: ${res.status}`);
