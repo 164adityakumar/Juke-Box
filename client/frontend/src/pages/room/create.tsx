@@ -88,18 +88,21 @@ export function CardWithForm() {
     }
   }, [AvatarRefresh]);
 
-  function handleRoomCreation() {
-    axios.post(`${process.env.API_URL}/api/rooms/create`, {
-      roomId: roomId
-    }).then((res) => {
-      console.log(`Status: ${res.status}`);
-      console.log('Body: ', res.data);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  
-  }
+ function handleRoomCreation() {
+  axios.post(`${process.env.API_URL}/api/rooms/create`, {
+    roomId: roomId
+  }, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    }
+  }).then((res) => {
+    console.log(`Status: ${res.status}`);
+    console.log('Body: ', res.data);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+}
 
   
   
