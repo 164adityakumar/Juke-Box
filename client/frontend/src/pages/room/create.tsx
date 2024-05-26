@@ -89,7 +89,7 @@ export function CardWithForm() {
   }, [AvatarRefresh]);
 
   function handleRoomCreation() {
-    axios.post(`${process.env.CREATE_ROOM_URL}`, {
+    axios.post(`${process.env.API_URL}${process.env.CREATE_ROOM_URL}`, {
       roomId: roomId
     }).then((res) => {
       console.log(`Status: ${res.status}`);
