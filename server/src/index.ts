@@ -13,20 +13,28 @@ dotenv.config();
 
 const app = express();
 const port = 8080;
-app.use(cors({
-    origin: '*',
-    Headers: ['Access-Control-Allow-Origin'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-  }));
+
   const server = http.createServer(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-app.use(routes);
+const allowCrossDomain = (req, res, next) => {
+    res.header(`Access-Control-Allow-Origin`, `example.com`);
+    res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
+    res.header(`Access-Control-Allow-Headers`, `Content-Type`);
+    next();
+  };
 
+app.use(routes);
+app.use(allowCrossDomain);
+app.use(cors({
+    origin: '*',
+    allowedHeaders: ['Access-Control-Allow-Origin'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  }));
 
 const wss = new WebSocketServer({ server });
 
