@@ -169,7 +169,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "pm2 start dist/index.js && pm2 monit",
+    "start": "nodemon dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
