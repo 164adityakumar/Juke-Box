@@ -167,6 +167,8 @@
     "ytmusic-api": "^5.2.1"
   },
   "scripts": {
+    "build": "tsc",
+    "start": "pm2 start ./dist/index.js && pm2 monit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
