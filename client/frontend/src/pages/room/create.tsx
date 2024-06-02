@@ -22,7 +22,7 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 import axios from "axios";
 import { atom, useRecoilState } from "recoil";
 import { useRouter } from "next/router";
-  import { wsManager } from "@/utils/ws";
+  import { WSManager } from "@/utils/ws";
 import { newQueuesong } from "@/components/search/atom";
 import { useEffect } from "react";
 
@@ -67,6 +67,8 @@ export function InputOTPControlled() {
 
 
 export function CardWithForm() {
+
+  const wsManager = WSManager();
  
   const [Username, setUsername] = useRecoilState(username)
 
@@ -182,7 +184,3 @@ export const RoomId = atom({
   default: "",
 });
 
-const WS= atom({
-  key: "ws",
-  default: "",
-});

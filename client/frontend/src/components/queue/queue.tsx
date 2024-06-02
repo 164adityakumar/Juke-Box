@@ -1,4 +1,4 @@
-import { wsManager } from "@/utils/ws";
+import { WSManager } from "@/utils/ws";
 import { useEffect, useState } from "react";
 import API from "../../utils/api";
 import { useRecoilState } from "recoil";
@@ -64,8 +64,6 @@ export function Queue() {
 
     useEffect(() => {
         if (newQsong && newQsong !== "trigger") {
-            
-
             const fetchNewSong = async () => {
                 const songResponse = await API.getTrackfromId(newQsong);
                 const newSong = songResponse.data.data[0];
@@ -79,10 +77,10 @@ export function Queue() {
                     downloadUrl: newSong.downloadUrl[2].url,
                 };
                 console.log(newSongData);
-                setFinalQueue([...getSongQueue, newSongData]);
-                setgetSongQueue([...getSongQueue, newSongData]);
+                setFinalQueue(prevQueue => [...prevQueue, newSongData]);
+                setgetSongQueue(prevQueue => [...prevQueue, newSongData]);
             };
-
+    
             fetchNewSong();
         }
     }, [newQsong]);

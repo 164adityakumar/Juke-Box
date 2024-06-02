@@ -4,14 +4,18 @@ import { Button } from '@/components/ui/button';
 import { useRecoilState } from 'recoil';
 
 import React, { useEffect, useState } from 'react'; 
-import { wsManager } from '@/utils/ws';
+import { WSManager } from '@/utils/ws';
 
 import { ScrollArea } from "../ui/scroll-area";
 import { data ,newQueuesong} from './atom';
 import { Player } from '../player/player';
+import { NextRouter } from 'next/router';
+
+
 
 
 export function Search (){
+    const wsManager = WSManager();
     const [Data, setData] = useRecoilState(data);
     const [newsong, setNewsong] = useRecoilState(newQueuesong);
     const [Track, setTrack] = useState<any>({}); // Add state to store track data
